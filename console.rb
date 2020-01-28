@@ -1,5 +1,5 @@
 require("pry-byebug")
-reqiure_relative("models/properties")
+require_relative("models/properties")
 
 property1 = PropertyTracker.new({
   "address" => "60 Castle Street",
@@ -16,3 +16,6 @@ property2 = PropertyTracker.new({
   "year_built"=> "1902"
   })
 property2.save()
+
+binding.pry
+nil
