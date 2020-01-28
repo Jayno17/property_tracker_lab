@@ -1,6 +1,8 @@
 require("pry-byebug")
 require_relative("models/properties")
 
+PropertyTracker.delete_all()
+
 property1 = PropertyTracker.new({
   "address" => "60 Castle Street",
   "value" => "£500000",
