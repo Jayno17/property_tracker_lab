@@ -53,9 +53,7 @@ class PropertyTracker
       db.prepare("update", sql)
       db.exec_prepared("update", values)
       db.close()
-    end
-
-
+  end
 
   def PropertyTracker.all()
     db = PG.connect ({
@@ -79,5 +77,38 @@ class PropertyTracker
       db.exec_prepared("delete_all")
       db.close()
   end
+
+  def PropertyTracker.find(id)
+    db = PG.connect ({
+      dbname: "property_tracker",
+      host: "localhost"
+      })
+      sql = "SELECT * FROM property_tracker
+      WHERE id = $1"
+      value = [id]
+      db.prepare("find_one", sql)
+      property_hash = db.exec_prepared("find_one", value).first()
+      db.close()
+      return PropertyTracker.new(property_hash)
+    end
+
+  def PropertyTracker.find_by_address(address)
+    db = PG.connect ({
+      dbname: "property_tracker",
+      host: "localhost"
+      })
+      sql = "SELECT * FROM property_tracker
+      WHERE address = $1"
+      value = [address]
+      db.prepare("find_by_address", sql)
+      if property_hash =      db.exec_prepared("find_by_address",     value).first()
+        db.close()
+        return PropertyTracker.new(property_hash)
+      else
+        return nil
+      end
+    end
+
+
 
 end
